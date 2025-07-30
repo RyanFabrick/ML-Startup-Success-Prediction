@@ -40,3 +40,6 @@ $RECYCLE.BIN/
 # Windows executable files
 *.exe
 *.msi
+
+# Ignore all model files in results/models folder (run them via README.md instructions)
+results/models/
