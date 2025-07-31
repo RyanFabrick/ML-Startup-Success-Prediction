@@ -220,14 +220,14 @@ class StartupDataProcessor:
         logger.info(f"Preprocessor loaded from {filepath}")
         return processor
 
-def create_and_fit_preprocessor(training_data_path: str) -> StartupDataProcessor:
+def create_and_fit_preprocessor(training_data_path: str, encoding: str = 'utf-8') -> StartupDataProcessor:
     """
     Creates and fit preprocessor on training data
     """
     logger.info(f"Loading training data from {training_data_path}")
     
-    # Loads the processed training data
-    df = pd.read_csv(training_data_path)
+    # Loads the training data with specified encoding
+    df = pd.read_csv(training_data_path, encoding=encoding)
     
     # Creates and fit preprocessor
     processor = StartupDataProcessor()
