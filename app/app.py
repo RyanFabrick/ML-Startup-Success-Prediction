@@ -8,13 +8,18 @@ import pandas as pd
 import numpy as np
 import shap
 import logging
+import sys
 from pathlib import Path
+
+# Sets up the project root path for imports
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 
 # Sets up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Global variables for models and preprocessor
+# Global vars for models and preprocessor
 models = {}
 explainers = {}
 feature_columns = []
@@ -22,21 +27,34 @@ preprocessor = None
 
 async def load_models():
     """
-    Load all trained models and SHAP explainers on startup
+    Loads all trained models and SHAP explainers on startup
     """
     global models, explainers, feature_columns, preprocessor
     
     try:
-        # Loads your three models
+        # Gets the absolute path to the project root
+        project_root = Path(__file__).parent.parent
+        models_dir = project_root / "results" / "models"
+        
+        logger.info(f"Looking for models in: {models_dir.absolute()}")
+        
+        # Lists all pickle files in the models directory
+        if models_dir.exists():
+            pkl_files = list(models_dir.glob("*.pkl"))
+            logger.info(f"Found pickle files: {[f.name for f in pkl_files]}")
+        else:
+            logger.error(f"Models directory does not exist: {models_dir}")
+            return
+        # Loads your three models (using absolute paths)
         model_files = {
-            'logistic': 'models/logistic_regression_model.pkl',
-            'xgboost': 'models/xgboost_model.pkl', 
-            'svm': 'models/svm_model.pkl'
+            'logistic': models_dir / 'logistic_regression_best.pkl',
+            'xgboost': models_dir / 'xgboost_best.pkl', 
+            'svm': models_dir / 'svm_rbf_best.pkl'
         }
         
         models = {}
         for name, path in model_files.items():
-            if Path(path).exists():
+            if path.exists():
                 models[name] = joblib.load(path)
                 logger.info(f"Loaded {name} model from {path}")
             else:
@@ -44,22 +62,22 @@ async def load_models():
         
         # Loads SHAP explainers
         explainer_files = {
-            'logistic': 'models/logistic_explainer.pkl',
-            'xgboost': 'models/xgboost_explainer.pkl',
-            'svm': 'models/svm_explainer.pkl'
+            'logistic': models_dir / 'logistic_explainer.pkl',
+            'xgboost': models_dir / 'xgboost_explainer.pkl',
+            'svm': models_dir / 'svm_explainer.pkl'
         }
         
         explainers = {}
         for name, path in explainer_files.items():
-            if Path(path).exists():
+            if path.exists():
                 explainers[name] = joblib.load(path)
                 logger.info(f"Loaded {name} explainer from {path}")
             else:
                 logger.warning(f"Explainer file not found: {path}")
         
         # Loads feature columns
-        feature_columns_path = 'models/feature_columns.pkl'
-        if Path(feature_columns_path).exists():
+        feature_columns_path = models_dir / 'feature_columns.pkl'
+        if feature_columns_path.exists():
             feature_columns = joblib.load(feature_columns_path)
             logger.info(f"Loaded {len(feature_columns)} feature columns")
         else:
@@ -68,8 +86,8 @@ async def load_models():
             feature_columns = []
         
         # Loads the preprocessor
-        preprocessor_path = 'models/preprocessor.pkl'
-        if Path(preprocessor_path).exists():
+        preprocessor_path = models_dir / 'preprocessor.pkl'
+        if preprocessor_path.exists():
             preprocessor = joblib.load(preprocessor_path)
             logger.info("Loaded preprocessor successfully")
         else:
@@ -90,7 +108,7 @@ async def lifespan(app: FastAPI):
     # Shutdown
     pass
 
-# FastAPI app with lifespan
+# FastAPI app w/ lifespan
 app = FastAPI(
     title="Startup Success Prediction API",
     description="Predict startup acquisition success using machine learning",
@@ -107,7 +125,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantic models for request/response
+# Pydantics models for request/response
 class StartupFeatures(BaseModel):
     country_code: str
     region: str
@@ -126,6 +144,8 @@ class StartupFeatures(BaseModel):
         return v
 
 class PredictionResponse(BaseModel):
+    model_config = {'protected_namespaces': ()}
+    
     success_probability: float
     prediction: int
     model_used: str
