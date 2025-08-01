@@ -1,6 +1,4 @@
-﻿# .gitattributes - Controls GitHub language detection
-
-# Mark generated HTML dashboards as generated files
+﻿# Mark generated HTML dashboards as generated files
 results/figures/*.html linguist-generated=true
 
 # Mark other generated/build files
