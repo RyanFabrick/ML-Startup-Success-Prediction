@@ -1,0 +1,18 @@
+﻿# .gitattributes - Controls GitHub language detection
+
+# Mark generated HTML dashboards as generated files
+results/figures/*.html linguist-generated=true
+
+# Mark other generated/build files
+*.html linguist-generated=true
+*.css linguist-generated=true
+startup-predictor/.next/** linguist-generated=true
+startup-predictor/node_modules/** linguist-generated=true
+.venv/** linguist-generated=true
+
+# Override for source files (mark as not generated)
+startup-predictor/app/*.tsx linguist-generated=false
+startup-predictor/components/*.tsx linguist-generated=false
+src/*.py linguist-generated=false
+app/*.py linguist-generated=false
+notebooks/*.ipynb linguist-generated=false
