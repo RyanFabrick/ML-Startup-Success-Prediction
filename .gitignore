@@ -18,6 +18,8 @@ Lib/
 # Environment variables
 .env
 .env.local
+.env.development
+.env.production
 
 # Python cache
 __pycache__/
@@ -43,3 +45,15 @@ $RECYCLE.BIN/
 
 # Ignore all model files in results/models folder (run them via README.md instructions)
 results/models/
+
+startup-predictor/.next/
+startup-predictor/out/
+startup-predictor/build/
+startup-predictor/.vercel/
+startup-predictor/node_modules/
+
+startup-predictor/.env
+startup-predictor/.env.local
+startup-predictor/.env.development.local
+startup-predictor/.env.test.local
+startup-predictor/.env.production.local
