@@ -97,7 +97,7 @@ const StartupPredictor = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-       <div className="container-flexible py-6">
+       <div className="container-flexible py-3">
           <div className="flex items-center space-x-3">
             <TrendingUp className="h-8 w-8 text-blue-600" />
             <div>
@@ -330,10 +330,9 @@ const StartupPredictor = () => {
                 {/* Top Factors */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Factors</h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2"> {/* Reduced from space-y-3 */}
                     {result.top_factors.map((factor, index) => (
-                      <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
-                        <div className="flex-1">
+                      <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-2">                        <div className="flex-1">
                           <p className="font-medium text-gray-900">
                             {factor.feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                           </p>
@@ -356,11 +355,12 @@ const StartupPredictor = () => {
                 </div>
 
                 {/* Interpretation */}
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-900 mb-2">Interpretation</h4>
-                  <p className="text-blue-800 text-sm">
-                    {result.prediction.success_probability > 0.7 
-                      ? "This startup shows strong indicators for success based on historical patterns. Consider factors like market timing and execution quality."
+                <div className="bg-blue-50 rounded-lg p-3"> {/* Reduced from p-4 */}
+                  <h4 className="font-semibold text-blue-900 mb-1 text-sm"> {/* Added text-sm */}
+                    Interpretation
+                  </h4>
+                  <p className="text-blue-800 text-xs"> {/* Reduced from text-sm */}
+                    {result.prediction.success_probability > 0.7                       ? "This startup shows strong indicators for success based on historical patterns. Consider factors like market timing and execution quality."
                       : result.prediction.success_probability > 0.4
                       ? "This startup shows mixed signals. Success will likely depend heavily on execution, market conditions, and strategic decisions."
                       : "This startup faces significant challenges based on historical patterns. Consider pivoting or addressing key risk factors."
@@ -378,7 +378,7 @@ const StartupPredictor = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 text-center text-gray-500 text-sm">
+        <div className="bg-gray-50 mt-6 text-center text-gray-500 text-sm"> {/* Reduced from mt-12 */}
           <p>Powered by an XGBoost ML model trained on data with over 50,000 startup</p>
           <p className="mt-1">
             <a 
