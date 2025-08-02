@@ -102,7 +102,7 @@ const StartupPredictor = () => {
             <TrendingUp className="h-8 w-8 text-blue-600" />
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Startup Success Predictor</h1>
-              <p className="text-gray-600">AI-powered analysis of startup acquisition potential</p>
+              <p className="text-gray-600">Machine Learning Powered analysis of startup success potential</p>
             </div>
           </div>
         </div>
@@ -130,6 +130,7 @@ const StartupPredictor = () => {
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
+                    suppressHydrationWarning
                   >
                     <option value="USA">USA</option>
                     <option value="GBR">United Kingdom</option>
@@ -154,6 +155,7 @@ const StartupPredictor = () => {
                     placeholder="e.g., SF Bay Area, London, Berlin"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
+                    suppressHydrationWarning
                   />
                 </div>
               </div>
@@ -170,6 +172,7 @@ const StartupPredictor = () => {
                   placeholder="e.g., San Francisco, London, Berlin"
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   required
+                  suppressHydrationWarning
                 />
               </div>
 
@@ -187,6 +190,7 @@ const StartupPredictor = () => {
                     placeholder="e.g., Software, Mobile, E-commerce"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
+                    suppressHydrationWarning
                   />
                   <p className="text-sm text-gray-500 mt-1">Separate multiple categories with commas</p>
                 </div>
@@ -203,6 +207,7 @@ const StartupPredictor = () => {
                     placeholder="e.g., Enterprise Software, Consumer Web"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
+                    suppressHydrationWarning
                   />
                 </div>
               </div>
@@ -222,6 +227,7 @@ const StartupPredictor = () => {
                     max="2025"
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     required
+                    suppressHydrationWarning
                   />
                 </div>
 
@@ -234,6 +240,7 @@ const StartupPredictor = () => {
                     value={formData.founded_month}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    suppressHydrationWarning
                   >
                     {Array.from({length: 12}, (_, i) => (
                       <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -250,6 +257,7 @@ const StartupPredictor = () => {
                     value={formData.founded_quarter}
                     onChange={handleInputChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    suppressHydrationWarning
                   >
                     <option value={1}>Q1</option>
                     <option value={2}>Q2</option>
@@ -264,6 +272,7 @@ const StartupPredictor = () => {
                 onClick={handleSubmit}
                 disabled={loading}
                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                suppressHydrationWarning
               >
                 {loading ? (
                   <span className="flex items-center justify-center">
@@ -362,7 +371,7 @@ const StartupPredictor = () => {
             ) : (
               <div className="text-center py-12">
                 <BarChart3 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500">Enter company information and click "Predict Success" to see AI-powered analysis</p>
+                <p className="text-gray-500">Enter company information and click "Predict Success" to see machine learning model analysis</p>
               </div>
             )}
           </div>
@@ -370,8 +379,17 @@ const StartupPredictor = () => {
 
         {/* Footer */}
         <div className="mt-12 text-center text-gray-500 text-sm">
-          <p>Powered by XGBoost ML model trained on 50,000+ startup outcomes</p>
-          <p className="mt-1">For educational and research purposes only</p>
+          <p>Powered by an XGBoost ML model trained on data with over 50,000 startup</p>
+          <p className="mt-1">
+            <a 
+              href="https://github.com/RyanFabrick/Startup-Success-Prediction.git" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              Click here to access GitHub Repository for this project
+            </a>
+          </p>
         </div>
       </div>
     </div>
