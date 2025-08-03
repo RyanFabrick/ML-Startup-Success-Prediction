@@ -101,7 +101,7 @@ const StartupPredictor = () => {
           <div className="flex items-center space-x-3">
             <TrendingUp className="h-8 w-8 text-blue-600" />
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Startup Success Predictor</h1>
+              <h1 className="text-3xl font-bold text-gray-900">ML Startup Success Predictor</h1>
               <p className="text-gray-600">Machine Learning Powered analysis of startup success potential</p>
             </div>
           </div>
@@ -379,7 +379,7 @@ const StartupPredictor = () => {
 
         {/* Footer */}
         <div className="bg-gray-50 mt-6 text-center text-gray-500 text-sm"> {/* Reduced from mt-12 */}
-          <p>Powered by an XGBoost ML model trained on data with over 50,000 startup</p>
+          <p>Powered by an XGBoost ML model trained on data with over 50,000 startups</p>
           <p className="mt-1">
             <a 
               href="https://github.com/RyanFabrick/Startup-Success-Prediction.git" 

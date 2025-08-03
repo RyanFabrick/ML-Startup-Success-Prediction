@@ -1,0 +1,292 @@
+"use client";
+import React from 'react';
+import { NotebookPen, Code2, KeyRound, Bot, ChartNetwork, TrendingUp, BookOpen, Database, Brain, Target, Users, Award, GitBranch } from 'lucide-react';
+import Link from 'next/link';
+
+const AboutPage = () => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="container-flexible py-3">
+          <div className="flex items-center space-x-3">
+            <TrendingUp className="h-8 w-8 text-blue-600" />
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">ML Startup Success Predictor</h1>
+              <p className="text-gray-600">Machine Learning Powered analysis of startup success potential</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-flexible py-8">
+        {/* Navigation */}
+        <div className="mb-4">
+          <Link 
+            href="/" 
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+            ← Back to Predictor
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* About This Project - Column 1 */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+              <BookOpen className="h-6 w-6 text-blue-600 mr-2" />
+              About This Project
+            </h2>
+
+            <div className="space-y-6">
+              <div className="border-l-4 border-purple-500 pl-4 bg-purple-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Target className="h-4 w-4 text-purple-600 mr-2" />
+                  Purpose
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                  <span className="text-black bg-yellow-100 px-1 rounded">Democratize startup success prediction through machine learning</span>. Built on 
+                  <span className="text-black bg-blue-100 px-1 rounded">Żbikowski & Antosiuk (2021)</span> methodology using 
+                  <span className="text-black bg-green-100 px-1 rounded">50,000+ companies across 25 years</span>.
+                  Makes <span className="text-black bg-yellow-100 px-1 rounded">prediction models accessible</span> to help <span className="text-black bg-blue-100 px-1 rounded">validate</span> ideas, identify 
+                  <span className="text-black bg-green-100 px-1 rounded">opportunities</span>, and support research with 
+                  <span className="text-black bg-purple-100 px-1 rounded">machine learning tools</span> for studying 
+                  <span className="text-black bg-orange-100 px-1 rounded">success patterns</span> across industries and cycles.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-blue-500 pl-4 bg-blue-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Brain className="h-4 w-4 text-blue-600 mr-2" />
+                  Machine Learning Approach
+                </h3>
+                <div className="text-gray-700 leading-relaxed text-sm space-y-3">
+                  <p>
+                    Tested three algorithms: <span className="text-black bg-yellow-100 px-1 rounded">Logistic Regression with L1</span>, 
+                    <span className="text-black bg-blue-100 px-1 rounded">SVM with RBF</span>, and 
+                    <span className="text-black bg-green-100 px-1 rounded">XGBoost</span>.
+                    Via <span className="text-black bg-purple-100 px-1 rounded">5-fold stratified cross-validation</span>, 
+                    <span className="text-black bg-orange-100 px-1 rounded">XGBoost emerged as best</span> and powers the app.
+                    Validated against <span className="text-black bg-blue-100 px-1 rounded">Żbikowski & Antosiuk</span> benchmarks, achieving 
+                    <span className="text-black bg-green-100 px-1 rounded">67.7% of F1-score target</span>.
+                    <span className="text-black bg-purple-100 px-1 rounded">Cross-validation stability</span> showed consistent results. 
+                    Integrated <span className="text-black bg-orange-100 px-1 rounded">SHAP explainers</span> provide interpretability of founding-time success factors.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Data & Process - Column 2 */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+              <NotebookPen className="h-6 w-6 text-blue-600 mr-2" />
+              Data & Process
+            </h2>
+
+            <div className="space-y-6">
+              <div className="border-l-4 border-green-500 pl-4 bg-green-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Database className="h-4 w-4 text-green-600 mr-2" />
+                  Dataset
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                  Crunchbase data of <span className="text-black bg-yellow-100 px-1 rounded">54,000+</span> startups from 
+                  <span className="text-black bg-blue-100 px-1 rounded">1902–2014</span>, covering 
+                  <span className="text-black bg-purple-100 px-1 rounded">over a century</span> of funding, location, and industry info across 
+                  <span className="text-black bg-orange-100 px-1 rounded">750+ global sectors</span>.
+                </p>
+              </div>
+
+              <div className="border-l-4 border-yellow-500 pl-4 bg-yellow-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <GitBranch className="h-4 w-4 text-yellow-600 mr-2" />
+                  Documented Notebooks <span className="font-normal italic ml-2 text-gray-600 text-xs"> (click to view)</span>
+                </h3>
+                    <ul className="text-gray-700 leading-relaxed space-y-2">
+                    <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>
+                        <a
+                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/01_data_exploration.ipynb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-xs"
+                        >
+                        Notebook 1: Exploratory Data Analysis
+                        </a>
+                    </li>
+                    <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <span className="inline-block w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
+                        <a
+                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/02_data_preprocessing_feature_engineering.ipynb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-xs"
+                        >
+                        Notebook 2: Data Preprocessing & Feature Engineering
+                        </a>
+                    </li>
+                    <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>
+                        <a
+                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/03_modeling.ipynb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-xs"
+                        >
+                        Notebook 3: Model Development
+                        </a>
+                    </li>
+                    <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <span className="inline-block w-2 h-2 bg-red-500 rounded-full mr-3 flex-shrink-0"></span>
+                        <a
+                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/04_evaluation.ipynb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-xs"
+                        >
+                        Notebook 4: Model Evaluation
+                        </a>
+                    </li>
+                    </ul>
+              </div>
+
+                <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <KeyRound className="h-6 w-6 text-yellow-600 mr-2" />
+                    Key Features
+                </h3>
+                <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-lg mb-1">+3</div>
+                    <div className="font-medium text-gray-800 text-sm">Geographic Factors</div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-lg mb-1">+15</div>
+                    <div className="font-medium text-gray-800 text-sm">Industry Categories</div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-lg mb-1">+4</div>
+                    <div className="font-medium text-gray-800 text-sm">Temporal Patterns</div>
+                    </div>
+                </div>
+                </div>
+
+            </div>
+          </div>
+
+          {/* Performance & Usage - Column 3 */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+                <Award className="h-6 w-6 text-blue-600 mr-2" />
+                Performance & Usage
+            </h2>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <ChartNetwork className="h-4 w-4 text-purple-600 mr-2" />
+                  Model Performance <span className="font-normal italic ml-2 text-gray-600 text-xs"> (XGBoost)</span>
+                </h3>
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
+                  <div className="grid grid-cols-2 gap-2 text-center">
+                    {/* F1-Score */}
+                    <div className="bg-white p-2 rounded-lg shadow-sm">
+                      <div className="text-2xl font-bold text-blue-600">29.1%</div>
+                      <div className="text-sm text-gray-600">F1-Score</div>
+                    </div>
+                    
+                    {/* AUC-ROC Score */}
+                    <div className="bg-white p-2 rounded-lg shaSdow-sm">
+                      <div className="text-2xl font-bold text-purple-600">79.0%</div>
+                      <div className="text-sm text-gray-600">AUC-ROC Score</div>
+                    </div>
+                    
+                    {/* Recall */}
+                    <div className="bg-white p-2 rounded-lg shadow-sm">
+                      <div className="text-2xl font-bold text-green-600">38.8%</div>
+                      <div className="text-sm text-gray-600">Recall</div>
+                    </div>
+                    
+                    {/* Precision */}
+                    <div className="bg-white p-2 rounded-lg shadow-sm">
+                      <div className="text-2xl font-bold text-orange-600">23.4%</div>
+                      <div className="text-sm text-gray-600">Precision</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-l-4 border-orange-500 pl-4 bg-orange-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Users className="h-4 w-4 text-orange-600 mr-2" />
+                  Who Can Use This
+                </h3>
+                <p className="text-gray-700 leading-relaxed text-sm">
+                    <span className="text-black bg-yellow-100 px-1 rounded">ENTREPRENEURS</span> validate & benchmark 
+                    ideas, <span className="text-black bg-blue-100 px-1 rounded">INVESTORS</span> identify high potential opportunities, 
+                    <span className="text-black bg-green-100 px-1 rounded">RESEARCHERS</span> explore unbiased prediction 
+                    methods & trends, and <span className="text-black bg-purple-100 px-1 rounded">STUDENTS</span> learn data driven business analysis via machine learning.
+                </p>
+              </div>
+
+
+                <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">Technology Stack</h3>
+
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Web Stack */}
+                <div className="bg-blue-100 rounded-xl shadow-md p-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                    <Code2 className="h-5 w-5 text-blue-600 mr-2" />
+                    Full Stack
+                    </h3>
+                    <p className="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                    React, Tailwind CSS, TypeScript, Next.js, FastAPI, Python, Pydantic, Uvicorn
+                    </p>
+                </div>
+
+                {/* ML / Data */}
+                <div className="bg-purple-100 rounded-xl shadow-md p-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                    <Bot className="h-5 w-5 text-purple-600 mr-2" />
+                    ML & DS
+                    </h3>
+                    <p className="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                    XGBoost, Logisitc Regression (w. Regularization), SVM (w. RBG Kernel), SHAP, Scikit-learn, pandas, NumPy, SciPy, Plotly.js, Matplotlib, Seaborn
+                    </p>
+                </div>
+                </div>
+
+
+
+                </div>
+
+
+
+
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-gray-500 text-sm mt-6">
+          <p>Powered by an XGBoost ML model trained on data with over 50,000 startups</p>
+          <p className="mt-1">
+            <a 
+              href="https://github.com/RyanFabrick/Startup-Success-Prediction.git" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 underline"
+            >
+              Click here to access GitHub Repository for this project
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AboutPage;
