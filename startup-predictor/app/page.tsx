@@ -1,6 +1,173 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { AlertCircle, TrendingUp, BarChart3, Lightbulb, Loader2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { AlertCircle, TrendingUp, BarChart3, Lightbulb, Loader2, ChevronDown, Search } from 'lucide-react';
+
+// SearchableDropdown Component
+interface SearchableDropdownProps {
+  options: string[];
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  loading?: boolean;
+  required?: boolean;
+  name: string;
+}
+
+const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
+  options,
+  value,
+  onChange,
+  placeholder,
+  loading = false,
+  required = false,
+  name
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Filter options based on search term (case insensitive)
+  const filteredOptions = options.filter(option =>
+    option.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+        setSearchTerm('');
+        setHighlightedIndex(-1);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isOpen) {
+      if (e.key === 'Enter' || e.key === 'ArrowDown') {
+        setIsOpen(true);
+        setHighlightedIndex(0);
+        e.preventDefault();
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setHighlightedIndex(prev => 
+          prev < filteredOptions.length - 1 ? prev + 1 : 0
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setHighlightedIndex(prev => 
+          prev > 0 ? prev - 1 : filteredOptions.length - 1
+        );
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (highlightedIndex >= 0 && highlightedIndex < filteredOptions.length) {
+          handleSelect(filteredOptions[highlightedIndex]);
+        }
+        break;
+      case 'Escape':
+        setIsOpen(false);
+        setSearchTerm('');
+        setHighlightedIndex(-1);
+        inputRef.current?.blur();
+        break;
+    }
+  };
+
+  const handleSelect = (option: string) => {
+    onChange(option);
+    setIsOpen(false);
+    setSearchTerm('');
+    setHighlightedIndex(-1);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setSearchTerm(newValue);
+    setHighlightedIndex(-1);
+    
+    // If input is cleared, clear the selection
+    if (newValue === '') {
+      onChange('');
+    }
+    
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+  };
+
+  const displayValue = value || searchTerm;
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <div className="relative">
+        <input
+          ref={inputRef}
+          type="text"
+          value={displayValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsOpen(true)}
+          placeholder={loading ? 'Loading...' : placeholder}
+          className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+          disabled={loading}
+          required={required}
+          name={name}
+          autoComplete="off"
+          suppressHydrationWarning
+        />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+          ) : (
+            <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+          )}
+        </div>
+      </div>
+
+      {isOpen && !loading && (
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          {filteredOptions.length === 0 ? (
+            <div className="p-3 text-center text-gray-500">
+              {searchTerm ? `No results for "${searchTerm}"` : 'No options available'}
+            </div>
+          ) : (
+            <div className="py-1">
+              {filteredOptions.map((option, index) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => handleSelect(option)}
+                  className={`w-full px-3 py-2 text-left hover:bg-gray-50 transition-colors ${
+                    index === highlightedIndex ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
+                  } ${option === value ? 'bg-blue-100 text-blue-800 font-medium' : ''}`}
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                >
+                  {option}
+                  {option === value && (
+                    <span className="ml-2 text-blue-600">✓</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
 // Types
 interface PredictionResponse {
@@ -30,6 +197,12 @@ const StartupPredictor = () => {
     founded_year: new Date().getFullYear()
   });
 
+  // Dropdown data state
+  const [regions, setRegions] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
+  const [regionsLoading, setRegionsLoading] = useState(false);
+  const [citiesLoading, setCitiesLoading] = useState(false);
+
   // Category management state
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -44,15 +217,44 @@ const StartupPredictor = () => {
   // API base URL
   const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
-  // Fetch available categories on component mount
+  // Fetch dropdown data on component mount
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchDropdownData = async () => {
+      // Fetch regions
+      setRegionsLoading(true);
+      try {
+        const regionsResponse = await fetch(`${API_BASE}/regions`);
+        if (regionsResponse.ok) {
+          const regionsData = await regionsResponse.json();
+          setRegions(regionsData.regions || []);
+        }
+      } catch (error) {
+        console.error('Failed to fetch regions:', error);
+      } finally {
+        setRegionsLoading(false);
+      }
+
+      // Fetch cities
+      setCitiesLoading(true);
+      try {
+        const citiesResponse = await fetch(`${API_BASE}/cities`);
+        if (citiesResponse.ok) {
+          const citiesData = await citiesResponse.json();
+          setCities(citiesData.cities || []);
+        }
+      } catch (error) {
+        console.error('Failed to fetch cities:', error);
+      } finally {
+        setCitiesLoading(false);
+      }
+
+      // Fetch categories
       setCategoriesLoading(true);
       try {
-        const response = await fetch(`${API_BASE}/categories`);
-        if (response.ok) {
-          const data = await response.json();
-          setAvailableCategories(data.categories);
+        const categoriesResponse = await fetch(`${API_BASE}/categories`);
+        if (categoriesResponse.ok) {
+          const categoriesData = await categoriesResponse.json();
+          setAvailableCategories(categoriesData.categories || []);
         }
       } catch (error) {
         console.error('Failed to fetch categories:', error);
@@ -61,8 +263,8 @@ const StartupPredictor = () => {
       }
     };
 
-    fetchCategories();
-  }, []);
+    fetchDropdownData();
+  }, [API_BASE]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -71,6 +273,13 @@ const StartupPredictor = () => {
       [name]: name.includes('year') 
         ? parseInt(value) || 0 
         : value
+    }));
+  };
+
+  const handleDropdownChange = (name: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
     }));
   };
 
@@ -98,6 +307,18 @@ const StartupPredictor = () => {
       return;
     }
 
+    if (!formData.region.trim()) {
+      setError('Please select a region');
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.city.trim()) {
+      setError('Please select a city');
+      setLoading(false);
+      return;
+    }
+
     try {
       // Convert array to space-separated string
       const formDataWithCategories = {
@@ -114,7 +335,8 @@ const StartupPredictor = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `API Error: ${response.status}`);
       }
 
       const data: ExplanationResponse = await response.json();
@@ -170,7 +392,7 @@ const StartupPredictor = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Country Code
+                    Country <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="country_code"
@@ -193,35 +415,39 @@ const StartupPredictor = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Region
+                    Region <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="region"
+                  <SearchableDropdown
+                    options={regions}
                     value={formData.region}
-                    onChange={handleInputChange}
-                    placeholder="e.g., SF Bay Area, London, Berlin"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                    suppressHydrationWarning
+                    onChange={(value) => handleDropdownChange('region', value)}
+                    placeholder="Search regions..."
+                    loading={regionsLoading}
+                    required={true}
+                    name="region"
                   />
+                  <p className="text-sm text-gray-500 mt-1">
+                    {regionsLoading ? 'Loading regions...' : `${regions.length} regions available`}
+                  </p>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  City
+                  City <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="text"
-                  name="city"
+                <SearchableDropdown
+                  options={cities}
                   value={formData.city}
-                  onChange={handleInputChange}
-                  placeholder="e.g., San Francisco, London, Berlin"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                  suppressHydrationWarning
+                  onChange={(value) => handleDropdownChange('city', value)}
+                  placeholder="Search cities..."
+                  loading={citiesLoading}
+                  required={true}
+                  name="city"
                 />
+                <p className="text-sm text-gray-500 mt-1">
+                  {citiesLoading ? 'Loading cities...' : `${cities.length} cities available`}
+                </p>
               </div>
 
               {/* Industry Information - Multi-Select Categories */}
@@ -256,7 +482,11 @@ const StartupPredictor = () => {
                   <button
                     type="button"
                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-left flex items-center justify-between"
+                    className={`w-full px-3 py-2 border rounded-lg bg-white text-left flex items-center justify-between transition-colors ${
+                      dropdownOpen 
+                        ? 'border-blue-500 ring-2 ring-blue-500 ring-opacity-20' 
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
                     suppressHydrationWarning
                   >
                     <span className="text-gray-500">
@@ -296,7 +526,7 @@ const StartupPredictor = () => {
                 </div>
                 
                 <p className="text-sm text-gray-500 mt-1">
-                  Select one or more categories that describe your startup
+                  Category that describes the startup
                   {selectedCategories.length === 0 && (
                     <span className="text-red-500 ml-1">(At least 1 required)</span>
                   )}
@@ -306,7 +536,7 @@ const StartupPredictor = () => {
               {/* Temporal Information */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Founded Year
+                  Founded Year <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="number"
@@ -319,7 +549,7 @@ const StartupPredictor = () => {
                   required
                   suppressHydrationWarning
                 />
-                <p className="text-sm text-gray-500 mt-1">Model trained on companies founded 1995-2015</p>
+                <p className="text-sm text-gray-500 mt-1">The current model is only trained on companies founded between <strong>1995 and 2015</strong></p>
               </div>
 
               {/* Submit Button */}
@@ -385,9 +615,10 @@ const StartupPredictor = () => {
                 {/* Top Factors */}
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Factors</h3>
-                  <div className="space-y-2"> {/* Reduced from space-y-3 */}
+                  <div className="space-y-2">
                     {result.top_factors.map((factor, index) => (
-                      <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-2">                        <div className="flex-1">
+                      <div key={index} className="flex items-center justify-between bg-gray-50 rounded-lg p-2">
+                        <div className="flex-1">
                           <p className="font-medium text-gray-900">
                             {factor.feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                           </p>
@@ -410,12 +641,13 @@ const StartupPredictor = () => {
                 </div>
 
                 {/* Interpretation */}
-                <div className="bg-blue-50 rounded-lg p-3"> {/* Reduced from p-4 */}
-                  <h4 className="font-semibold text-blue-900 mb-1 text-sm"> {/* Added text-sm */}
+                <div className="bg-blue-50 rounded-lg p-3">
+                  <h4 className="font-semibold text-blue-900 mb-1 text-sm">
                     Interpretation
                   </h4>
-                  <p className="text-blue-800 text-xs"> {/* Reduced from text-sm */}
-                    {result.prediction.success_probability > 0.7                       ? "This startup shows strong indicators for success based on historical patterns. Consider factors like market timing and execution quality."
+                  <p className="text-blue-800 text-xs">
+                    {result.prediction.success_probability > 0.7
+                      ? "This startup shows strong indicators for success based on historical patterns. Consider factors like market timing and execution quality."
                       : result.prediction.success_probability > 0.4
                       ? "This startup shows mixed signals. Success will likely depend heavily on execution, market conditions, and strategic decisions."
                       : "This startup faces significant challenges based on historical patterns. Consider pivoting or addressing key risk factors."
@@ -433,7 +665,7 @@ const StartupPredictor = () => {
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 mt-6 text-center text-gray-500 text-sm"> {/* Reduced from mt-12 */}
+        <div className="bg-gray-50 mt-6 text-center text-gray-500 text-sm">
           <p>Powered by an XGBoost ML model trained on data with over 50,000 startups</p>
           <p className="mt-1">
             <a 
