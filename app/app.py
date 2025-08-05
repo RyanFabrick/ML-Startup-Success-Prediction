@@ -23,13 +23,15 @@ logger = logging.getLogger(__name__)
 models = {}
 explainers = {}
 feature_columns = []
+region_lookup = {}
+city_lookup = {}
 preprocessor = None
 
 async def load_models():
     """
     Loads all trained models and SHAP explainers on startup
     """
-    global models, explainers, feature_columns, preprocessor
+    global models, explainers, feature_columns, preprocessor, region_lookup, city_lookup
     
     try:
         # Gets the absolute path to the project root
@@ -94,11 +96,44 @@ async def load_models():
             logger.error(f"Preprocessor not found at {preprocessor_path}")
             raise FileNotFoundError(f"Preprocessor required for API operation")
         
+        # Loads the dropdown data and creates lookup dictionaries
+        data_dir = project_root / "data" / "processed"
+        
+        # Loads the exact region and exact city names
+        regions_csv = data_dir / "unique_regions.csv"
+        cities_csv = data_dir / "unique_cities.csv"
+        
+        if regions_csv.exists() and cities_csv.exists():
+            regions_df = pd.read_csv(regions_csv)
+            cities_df = pd.read_csv(cities_csv)
+            
+            # Creates a case INSENSITIVE lookup dictionaries
+            region_lookup = {region.lower(): region for region in regions_df['region']}
+            city_lookup = {city.lower(): city for city in cities_df['city']}
+            
+            logger.info(f"Loaded {len(region_lookup)} regions and {len(city_lookup)} cities for lookup")
+        else:
+            logger.warning("Dropdown CSV files not found. Case sensitivity may cause issues...")
+            region_lookup = {}
+            city_lookup = {}
+        
         logger.info("All models and preprocessor loaded successfully!")
         
     except Exception as e:
         logger.error(f"Error loading models: {str(e)}")
         raise e
+
+def normalize_region(user_input: str) -> str:
+    """Converts user input to exact model format"""
+    if not user_input:
+        return user_input
+    return region_lookup.get(user_input.lower(), user_input)
+
+def normalize_city(user_input: str) -> str:
+    """Converts user input to exact model format"""  
+    if not user_input:
+        return user_input
+    return city_lookup.get(user_input.lower(), user_input)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -155,19 +190,23 @@ class ExplanationResponse(BaseModel):
 
 def preprocess_features(features: StartupFeatures) -> np.ndarray:
     """
-    Preprocess input features to match training data format
+    Preprocessess input features to match training data format
     """
     try:
+        # Normalizes region and city to exact model format
+        normalized_region = normalize_region(features.region)
+        normalized_city = normalize_city(features.city)
+        
         # Converts Pydantic model to dictionary with correct field names
         feature_dict = {
             'country_code': features.country_code,
-            'region': features.region,
-            'city': features.city, 
+            'region': normalized_region,  
+            'city': normalized_city,     
             'category_list': features.category_list,
             'founded_year': features.founded_year
         }
         
-        # Use the loaded preprocessor to transform the data
+        # Uses the loaded preprocessor to transform the data
         processed_features = preprocessor.transform_single(feature_dict)
         return processed_features
         
@@ -311,6 +350,22 @@ async def get_available_categories():
         'enterprise', 'technology', 'marketing', 'analytics'
     ]
     return {"categories": categories}
+
+@app.get("/regions")
+async def get_available_regions():
+    """
+    Returns the list of available regions for the frontend dropdown
+    """
+    regions = sorted(list(region_lookup.values()))
+    return {"regions": regions}
+
+@app.get("/cities") 
+async def get_available_cities():
+    """
+    Returns the list of available cities for the frontend dropdown
+    """
+    cities = sorted(list(city_lookup.values()))
+    return {"cities": cities}
 
 if __name__ == "__main__":
     import uvicorn
