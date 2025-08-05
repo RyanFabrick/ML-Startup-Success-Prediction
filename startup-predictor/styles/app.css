@@ -514,3 +514,49 @@ select:focus-visible {
   outline: 2px solid var(--primary-blue);
   outline-offset: 2px;
 }
+
+/* Multi-select dropdown enhancements */
+.relative .absolute.z-10 {
+  z-index: 50;
+}
+
+/* Category chips styling */
+.inline-flex.items-center.px-3.py-1.bg-blue-100 {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  border: 1px solid #3b82f6;
+  transition: all 0.2s ease;
+}
+
+.inline-flex.items-center.px-3.py-1.bg-blue-100:hover {
+  background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+  transform: translateY(-1px);
+}
+
+/* Dropdown animation */
+.absolute.z-10.w-full.mt-1 {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Dropdown hover effects */
+.hover\\:bg-gray-50:hover {
+  background-color: #f9fafb;
+  transition: background-color 0.15s ease;
+}

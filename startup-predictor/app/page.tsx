@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AlertCircle, TrendingUp, BarChart3, Lightbulb, Loader2 } from 'lucide-react';
 
 // Types
@@ -30,13 +30,39 @@ const StartupPredictor = () => {
     founded_year: new Date().getFullYear()
   });
 
+  // Category management state
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   // UI state
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ExplanationResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // API base URL
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';;
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  // Fetch available categories on component mount
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setCategoriesLoading(true);
+      try {
+        const response = await fetch(`${API_BASE}/categories`);
+        if (response.ok) {
+          const data = await response.json();
+          setAvailableCategories(data.categories);
+        }
+      } catch (error) {
+        console.error('Failed to fetch categories:', error);
+      } finally {
+        setCategoriesLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -48,18 +74,43 @@ const StartupPredictor = () => {
     }));
   };
 
+  const handleCategoryToggle = (category: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(category)
+        ? prev.filter(c => c !== category)
+        : [...prev, category]
+    );
+  };
+
+  const removeCategoryChip = (category: string) => {
+    setSelectedCategories(prev => prev.filter(c => c !== category));
+  };
+
   const handleSubmit = async () => {
     setLoading(true);
     setError(null);
     setResult(null);
 
+    // Add validation at the start of handleSubmit
+    if (selectedCategories.length === 0) {
+      setError('Please select at least one category');
+      setLoading(false);
+      return;
+    }
+
     try {
+      // Convert array to space-separated string
+      const formDataWithCategories = {
+        ...formData,
+        category_list: selectedCategories.join(' ')
+      };
+
       const response = await fetch(`${API_BASE}/predict/explain`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formDataWithCategories)
       });
 
       if (!response.ok) {
@@ -173,22 +224,83 @@ const StartupPredictor = () => {
                 />
               </div>
 
-              {/* Industry Information */}
+              {/* Industry Information - Multi-Select Categories */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Categories
+                  Categories {selectedCategories.length === 0 && <span className="text-red-500">*</span>}
                 </label>
-                <input
-                  type="text"
-                  name="category_list"
-                  value={formData.category_list}
-                  onChange={handleInputChange}
-                  placeholder="e.g., software mobile enterprise"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  required
-                  suppressHydrationWarning
-                />
-                <p className="text-sm text-gray-500 mt-1">Available: software, mobile, social, web, enterprise, biotechnology, etc. (space-separated)</p>
+                
+                {/* Selected Categories Chips */}
+                {selectedCategories.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-3 p-2 bg-gray-50 rounded-lg">
+                    {selectedCategories.map(category => (
+                      <span
+                        key={category}
+                        className="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full"
+                      >
+                        {category}
+                        <button
+                          type="button"
+                          onClick={() => removeCategoryChip(category)}
+                          className="ml-2 text-blue-600 hover:text-blue-800"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                )}
+                
+                {/* Dropdown */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-left flex items-center justify-between"
+                    suppressHydrationWarning
+                  >
+                    <span className="text-gray-500">
+                      {selectedCategories.length === 0 
+                        ? 'Select categories...' 
+                        : `${selectedCategories.length} selected`}
+                    </span>
+                    <span className={`transform transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}>
+                      ▼
+                    </span>
+                  </button>
+                  
+                  {dropdownOpen && (
+                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                      {categoriesLoading ? (
+                        <div className="p-3 text-center text-gray-500">Loading categories...</div>
+                      ) : (
+                        availableCategories.map(category => (
+                          <label
+                            key={category}
+                            className="flex items-center p-3 hover:bg-gray-50 cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedCategories.includes(category)}
+                              onChange={() => handleCategoryToggle(category)}
+                              className="mr-3 text-blue-600 focus:ring-blue-500"
+                            />
+                            <span className="text-gray-900 capitalize">
+                              {category.replace(/-/g, ' ')}
+                            </span>
+                          </label>
+                        ))
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                <p className="text-sm text-gray-500 mt-1">
+                  Select one or more categories that describe your startup
+                  {selectedCategories.length === 0 && (
+                    <span className="text-red-500 ml-1">(At least 1 required)</span>
+                  )}
+                </p>
               </div>
 
               {/* Temporal Information */}
