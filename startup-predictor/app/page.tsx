@@ -21,16 +21,13 @@ interface ExplanationResponse {
 }
 
 const StartupPredictor = () => {
-  // Form state
+  // Form state - UPDATED TO MATCH API
   const [formData, setFormData] = useState({
     country_code: 'USA',
     region: '',
     city: '',
     category_list: '',
-    market: '',
-    founded_year: new Date().getFullYear(),
-    founded_month: 1,
-    founded_quarter: 1
+    founded_year: new Date().getFullYear()
   });
 
   // UI state
@@ -45,7 +42,7 @@ const StartupPredictor = () => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name.includes('year') || name.includes('month') || name.includes('quarter') 
+      [name]: name.includes('year') 
         ? parseInt(value) || 0 
         : value
     }));
@@ -177,94 +174,40 @@ const StartupPredictor = () => {
               </div>
 
               {/* Industry Information */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Categories
-                  </label>
-                  <input
-                    type="text"
-                    name="category_list"
-                    value={formData.category_list}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Software, Mobile, E-commerce"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                    suppressHydrationWarning
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate multiple categories with commas</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Market
-                  </label>
-                  <input
-                    type="text"
-                    name="market"
-                    value={formData.market}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Enterprise Software, Consumer Web"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                    suppressHydrationWarning
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Categories
+                </label>
+                <input
+                  type="text"
+                  name="category_list"
+                  value={formData.category_list}
+                  onChange={handleInputChange}
+                  placeholder="e.g., software mobile enterprise"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                  suppressHydrationWarning
+                />
+                <p className="text-sm text-gray-500 mt-1">Available: software, mobile, social, web, enterprise, biotechnology, etc. (space-separated)</p>
               </div>
 
               {/* Temporal Information */}
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Founded Year
-                  </label>
-                  <input
-                    type="number"
-                    name="founded_year"
-                    value={formData.founded_year}
-                    onChange={handleInputChange}
-                    min="1995"
-                    max="2025"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                    suppressHydrationWarning
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Founded Month
-                  </label>
-                  <select
-                    name="founded_month"
-                    value={formData.founded_month}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    suppressHydrationWarning
-                  >
-                    {Array.from({length: 12}, (_, i) => (
-                      <option key={i + 1} value={i + 1}>{i + 1}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Founded Quarter
-                  </label>
-                  <select
-                    name="founded_quarter"
-                    value={formData.founded_quarter}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    suppressHydrationWarning
-                  >
-                    <option value={1}>Q1</option>
-                    <option value={2}>Q2</option>
-                    <option value={3}>Q3</option>
-                    <option value={4}>Q4</option>
-                  </select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Founded Year
+                </label>
+                <input
+                  type="number"
+                  name="founded_year"
+                  value={formData.founded_year}
+                  onChange={handleInputChange}
+                  min="1995"
+                  max="2015"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  required
+                  suppressHydrationWarning
+                />
+                <p className="text-sm text-gray-500 mt-1">Model trained on companies founded 1995-2015</p>
               </div>
 
               {/* Submit Button */}

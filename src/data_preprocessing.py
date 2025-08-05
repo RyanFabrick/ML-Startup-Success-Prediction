@@ -33,7 +33,7 @@ class StartupDataProcessor:
         """
         Cleans categories and handle parsing artifacts
         """
-        if pd.isna(category_string):
+        if pd.isna(category_string) or category_string == "":
             return []
         
         # Remove pipes, split, and clean
@@ -65,7 +65,7 @@ class StartupDataProcessor:
         Assigns economic era based on founding year
         """
         if pd.isna(founded_year):
-            return 'unknown'
+            return 'recovery'  # Default to most common era
         elif 1995 <= founded_year <= 2000:
             return 'dotcom_era'
         elif 2001 <= founded_year <= 2008:
@@ -73,7 +73,7 @@ class StartupDataProcessor:
         elif 2009 <= founded_year <= 2015:
             return 'recovery'
         else:
-            return 'other'
+            return 'recovery'  # Default for out-of-range years
     
     def fit(self, df: pd.DataFrame) -> 'StartupDataProcessor':
         """
@@ -98,15 +98,18 @@ class StartupDataProcessor:
         
         logger.info(f"Founding year statistics - Mean: {self.founding_year_mean:.1f}, Std: {self.founding_year_std:.1f}")
         
-        # Defines expected feature columns after transformation
+        # Defines expected feature columns after transformation (MATCHES MODEL EXACTLY)
         self.feature_columns = [
-            # Geographic features
+            # Geographic features (3)
             'region_startup_density',
             'city_startup_density', 
             'is_usa',
-            # Industry features (top categories)
-            *[f'category_{cat}' for cat in self.top_categories],
-            # Temporal features
+            # Industry features (15) - MUST MATCH YOUR MODEL'S ORDER
+            'category_software', 'category_mobile', 'category_social', 'category_media',
+            'category_web', 'category_e-commerce', 'category_biotechnology', 'category_curated',
+            'category_health', 'category_advertising', 'category_games', 'category_enterprise',
+            'category_technology', 'category_marketing', 'category_analytics',
+            # Temporal features (4)
             'founded_year_std',
             'era_dotcom_era',
             'era_post_crash', 
@@ -136,9 +139,15 @@ class StartupDataProcessor:
         # 1. GEOGRAPHIC FEATURE ENGINEERING
         # Region startup density (5 tier ranking system)
         df_processed['region_startup_density'] = df_processed['region'].map(self.region_density_mapping)
+    
+        # Fill unknown regions with tier 5 (lowest density)
+        df_processed['region_startup_density'].fillna(5, inplace=True)
         
         # City startup density (5 tier ranking system) 
         df_processed['city_startup_density'] = df_processed['city'].map(self.city_density_mapping)
+        
+        # Fill unknown cities with tier 5 (lowest density)
+        df_processed['city_startup_density'].fillna(5, inplace=True)
         
         # USA binary flag
         df_processed['is_usa'] = (df_processed['country_code'] == 'USA').astype(int)
@@ -166,12 +175,7 @@ class StartupDataProcessor:
         era_dummies = pd.get_dummies(df_processed['economic_era'], prefix='era')
         df_processed = pd.concat([df_processed, era_dummies], axis=1)
         
-        # 4. MISSING VALUE HANDLING
-        # Geographic density features(tier 5)
-        df_processed['region_startup_density'].fillna(5, inplace=True)  # Mode from training
-        df_processed['city_startup_density'].fillna(5, inplace=True)   # Mode from training
-        
-        # Handles any missing era columns by ensuring all expected era columns exist
+        # Ensures all expected era columns exist
         for era in ['era_dotcom_era', 'era_post_crash', 'era_recovery']:
             if era not in df_processed.columns:
                 df_processed[era] = 0
@@ -183,19 +187,21 @@ class StartupDataProcessor:
             df_processed.loc[unknown_mask, 'era_recovery'] = 1
             df_processed.loc[unknown_mask, 'era_unknown'] = 0
         
-        # 5. FEATURE SELECTION
-        # Extracts only the modeling features
+        # 5. FEATURE SELECTION - EXTRACT FEATURES MODEL EXPECTS
         try:
             feature_matrix = df_processed[self.feature_columns].values
         except KeyError as e:
             missing_cols = [col for col in self.feature_columns if col not in df_processed.columns]
+            available_cols = list(df_processed.columns)
             logger.error(f"Missing columns after preprocessing: {missing_cols}")
+            logger.error(f"Available columns: {available_cols}")
             raise KeyError(f"Missing required columns: {missing_cols}")
         
         # Handles any remaining NaN values
         feature_matrix = np.nan_to_num(feature_matrix, nan=0.0)
         
         logger.info(f"Transformation complete. Output shape: {feature_matrix.shape}")
+        logger.info(f"Feature order: {self.feature_columns}")
         return feature_matrix
     
     def fit_transform(self, df: pd.DataFrame) -> np.ndarray:
@@ -266,16 +272,13 @@ if __name__ == "__main__":
     # Saves for production use
     processor.save("models/preprocessor.pkl")
     
-    # Tests with sample data
+    # Tests with sample data - UPDATED TO MATCH API INPUTS
     sample_data = {
         'country_code': 'USA',
         'region': 'SF Bay Area', 
         'city': 'San Francisco',
-        'category_list': 'Software | Enterprise',
-        'market': 'Enterprise Software',
-        'founded_year': 2010,
-        'founded_month': 6,
-        'founded_quarter': 2
+        'category_list': 'software enterprise',  # Space-separated instead of pipe-separated
+        'founded_year': 2010
     }
     
     # Transforms sample

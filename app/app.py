@@ -125,22 +125,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Pydantics models for request/response
+# Pydantics models for request/response - UPDATED TO MATCH MODEL INPUTS
 class StartupFeatures(BaseModel):
     country_code: str
     region: str
     city: str
-    category_list: str
-    market: str
+    category_list: str  # Will be processed into binary category features
     founded_year: int
-    founded_month: Optional[int] = 1
-    founded_quarter: Optional[int] = 1
     
     @field_validator('founded_year')
     @classmethod
     def validate_founded_year(cls, v):
-        if v < 1995 or v > 2025:
-            raise ValueError('Founded year must be between 1995 and 2025')
+        if v < 1995 or v > 2015:  # Updated to match your training data range
+            raise ValueError('Founded year must be between 1995 and 2015')
         return v
 
 class PredictionResponse(BaseModel):
@@ -161,16 +158,13 @@ def preprocess_features(features: StartupFeatures) -> np.ndarray:
     Preprocess input features to match training data format
     """
     try:
-        # Converts Pydantic model to dictionary
+        # Converts Pydantic model to dictionary with correct field names
         feature_dict = {
             'country_code': features.country_code,
             'region': features.region,
             'city': features.city, 
             'category_list': features.category_list,
-            'market': features.market,
-            'founded_year': features.founded_year,
-            'founded_month': getattr(features, 'founded_month', 1),  # Default to January
-            'founded_quarter': getattr(features, 'founded_quarter', 1)  # Default to Q1
+            'founded_year': features.founded_year
         }
         
         # Use the loaded preprocessor to transform the data
@@ -192,7 +186,10 @@ async def health_check():
         "status": "healthy",
         "models_loaded": len(models),
         "explainers_loaded": len(explainers),
-        "preprocessor_loaded": preprocessor is not None
+        "preprocessor_loaded": preprocessor is not None,
+        "expected_features": [
+            "country_code", "region", "city", "category_list", "founded_year"
+        ]
     }
 
 @app.post("/predict", response_model=PredictionResponse)
@@ -302,6 +299,18 @@ async def list_models():
         "feature_columns_count": len(feature_columns),
         "preprocessor_loaded": preprocessor is not None
     }
+
+@app.get("/categories")
+async def get_available_categories():
+    """
+    Returns the list of available categories for the frontend
+    """
+    categories = [
+        'software', 'mobile', 'social', 'media', 'web', 'e-commerce', 
+        'biotechnology', 'curated', 'health', 'advertising', 'games', 
+        'enterprise', 'technology', 'marketing', 'analytics'
+    ]
+    return {"categories": categories}
 
 if __name__ == "__main__":
     import uvicorn
