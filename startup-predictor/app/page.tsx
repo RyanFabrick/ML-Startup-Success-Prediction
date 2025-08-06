@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { AlertCircle, TrendingUp, BarChart3, Lightbulb, Loader2, ChevronDown, Search } from 'lucide-react';
+import Link from 'next/link';
 
-// SearchableDropdown Component
+// SearchableDropdown Component - FIXED VERSION
 interface SearchableDropdownProps {
   options: string[];
   value: string;
@@ -83,6 +84,12 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         setHighlightedIndex(-1);
         inputRef.current?.blur();
         break;
+      case 'Backspace':
+        // Allows backspace to clear selection when input is focused
+        if (!searchTerm && value) {
+          onChange('');
+        }
+        break;
     }
   };
 
@@ -98,8 +105,8 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
     setSearchTerm(newValue);
     setHighlightedIndex(-1);
     
-    // If input is cleared, clear the selection
-    if (newValue === '') {
+    // If user is typing and there's a previous selection, clears it
+    if (value && newValue !== value) {
       onChange('');
     }
     
@@ -108,7 +115,21 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
     }
   };
 
-  const displayValue = value || searchTerm;
+  const handleInputFocus = () => {
+    setIsOpen(true);
+    // If there's a selected value, shows it as search term for editing
+    if (value && !searchTerm) {
+      setSearchTerm(value);
+    }
+  };
+
+  // Determines what to show in the input
+  const getDisplayValue = () => {
+    if (isOpen) {
+      return searchTerm;
+    }
+    return value || '';
+  };
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -116,10 +137,10 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         <input
           ref={inputRef}
           type="text"
-          value={displayValue}
+          value={getDisplayValue()}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => setIsOpen(true)}
+          onFocus={handleInputFocus}
           placeholder={loading ? 'Loading...' : placeholder}
           className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
           disabled={loading}
@@ -128,12 +149,29 @@ const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
           autoComplete="off"
           suppressHydrationWarning
         />
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          {loading ? (
-            <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
-          ) : (
-            <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+          {/* Clear button when there's a value */}
+          {value && !loading && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onChange('');
+                setSearchTerm('');
+                inputRef.current?.focus();
+              }}
+              className="mr-1 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              ×
+            </button>
           )}
+          <div className="pointer-events-none">
+            {loading ? (
+              <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
+            ) : (
+              <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            )}
+          </div>
         </div>
       </div>
 
@@ -367,7 +405,7 @@ const StartupPredictor = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-       <div className="container-flexible py-3">
+        <div className="container-flexible py-3 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <TrendingUp className="h-8 w-8 text-blue-600" />
             <div>
@@ -375,10 +413,14 @@ const StartupPredictor = () => {
               <p className="text-gray-600">Machine Learning Powered analysis of startup success potential</p>
             </div>
           </div>
+          <Link href="/about" 
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
+            About This Application
+          </Link>
         </div>
       </div>
 
-      <div className="container-flexible py-8">
+      <div className="container-flexible py-8 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Form */}
           <div className="bg-white rounded-xl shadow-lg p-6">

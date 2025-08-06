@@ -8,7 +8,7 @@ const AboutPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="container-flexible py-3">
+        <div className="container-flexible py-3 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <TrendingUp className="h-8 w-8 text-blue-600" />
             <div>
@@ -16,20 +16,16 @@ const AboutPage = () => {
               <p className="text-gray-600">Machine Learning Powered analysis of startup success potential</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="container-flexible py-8">
-        {/* Navigation */}
-        <div className="mb-4">
-          <Link 
-            href="/" 
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
-          >
+          <Link href="/" 
+            className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
             ← Back to Predictor
           </Link>
         </div>
+      </div>
 
+      {/* Main Content Container - Added to match main page structure */}
+      <div className="container-flexible py-8 px-4 sm:px-6 lg:px-8">
+        {/* Grid Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* About This Project - Column 1 */}
           <div className="bg-white rounded-xl shadow-lg p-6">
@@ -151,27 +147,41 @@ const AboutPage = () => {
                     </ul>
               </div>
 
-                <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-                    <KeyRound className="h-6 w-6 text-yellow-600 mr-2" />
-                    Key Features
+              {/* Technology Stack - Combined with color legend */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <Code2 className="h-5 w-5 text-rose-600 mr-2" />
+                  Technology Stack
                 </h3>
-                <div className="grid grid-cols-3 gap-3">
-                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
-                    <div className="text-black font-bold text-lg mb-1">+3</div>
-                    <div className="font-medium text-gray-800 text-sm">Geographic Factors</div>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
-                    <div className="text-black font-bold text-lg mb-1">+15</div>
-                    <div className="font-medium text-gray-800 text-sm">Industry Categories</div>
-                    </div>
-                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
-                    <div className="text-black font-bold text-lg mb-1">+4</div>
-                    <div className="font-medium text-gray-800 text-sm">Temporal Patterns</div>
-                    </div>
-                </div>
+                
+                {/* Color Legend */}
+                <div className="flex items-center justify-center gap-4 mb-3 text-xs text-gray-600">
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full mr-1"></span>
+                    Full Stack
+                  </div>
+                  <div className="flex items-center">
+                    <span className="w-2 h-2 bg-purple-500 rounded-full mr-1"></span>
+                    Machine Learning & Data Science
+                  </div>
                 </div>
 
+                {/* All Technologies Combined */}
+                <div className="flex flex-wrap gap-1.5">
+                  {/* Full Stack Technologies */}
+                  {['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'FastAPI', 'Python', 'Pydantic', 'Uvicorn'].map((tech) => (
+                    <span key={tech} className="px-1.5 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                  {/* ML & Data Science Technologies */}
+                  {['XGBoost', 'Logistic Regression', 'SVM', 'SHAP', 'Scikit-learn', 'pandas', 'NumPy', 'SciPy', 'Matplotlib', 'Seaborn', 'Plotly.js'].map((tech) => (
+                    <span key={tech} className="px-1.5 py-0.5 bg-purple-100 text-purple-800 text-xs rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -197,7 +207,7 @@ const AboutPage = () => {
                     </div>
                     
                     {/* AUC-ROC Score */}
-                    <div className="bg-white p-2 rounded-lg shaSdow-sm">
+                    <div className="bg-white p-2 rounded-lg shadow-sm">
                       <div className="text-2xl font-bold text-purple-600">79.0%</div>
                       <div className="text-sm text-gray-600">AUC-ROC Score</div>
                     </div>
@@ -230,42 +240,27 @@ const AboutPage = () => {
                 </p>
               </div>
 
-
-                <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Technology Stack</h3>
-
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Web Stack */}
-                <div className="bg-blue-100 rounded-xl shadow-md p-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-                    <Code2 className="h-5 w-5 text-blue-600 mr-2" />
-                    Full Stack
-                    </h3>
-                    <p className="text-sm text-gray-700 list-disc pl-5 space-y-1">
-                    React, Tailwind CSS, TypeScript, Next.js, FastAPI, Python, Pydantic, Uvicorn
-                    </p>
+              {/* Key Features - Moved from column 2 */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                    <KeyRound className="h-5 w-5 text-yellow-600 mr-2" />
+                    Key Features
+                </h3>
+                <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-base mb-1">+3</div>
+                    <div className="font-medium text-gray-800 text-xs">Geographic Factors</div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-base mb-1">+15</div>
+                    <div className="font-medium text-gray-800 text-xs">Industry Categories</div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-3 flex flex-col items-center text-center">
+                    <div className="text-black font-bold text-base mb-1">+4</div>
+                    <div className="font-medium text-gray-800 text-xs">Temporal Patterns</div>
+                    </div>
                 </div>
-
-                {/* ML / Data */}
-                <div className="bg-purple-100 rounded-xl shadow-md p-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-                    <Bot className="h-5 w-5 text-purple-600 mr-2" />
-                    ML & DS
-                    </h3>
-                    <p className="text-sm text-gray-700 list-disc pl-5 space-y-1">
-                    XGBoost, Logisitc Regression (w. Regularization), SVM (w. RBG Kernel), SHAP, Scikit-learn, pandas, NumPy, SciPy, Plotly.js, Matplotlib, Seaborn
-                    </p>
-                </div>
-                </div>
-
-
-
-                </div>
-
-
-
-
+              </div>
             </div>
           </div>
         </div>
