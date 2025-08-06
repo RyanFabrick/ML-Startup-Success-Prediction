@@ -415,7 +415,7 @@ const StartupPredictor = () => {
           </div>
           <Link href="/about" 
             className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
-            About This Application
+            About This Application & Project
           </Link>
         </div>
       </div>
@@ -444,14 +444,55 @@ const StartupPredictor = () => {
                     required
                     suppressHydrationWarning
                   >
-                    <option value="USA">USA</option>
-                    <option value="GBR">United Kingdom</option>
+                    <option value="USA">United States</option>
                     <option value="CAN">Canada</option>
+                    <option value="GBR">United Kingdom</option>
                     <option value="DEU">Germany</option>
                     <option value="FRA">France</option>
+                    <option value="JPN">Japan</option>
+                    <option value="KOR">South Korea</option>
                     <option value="CHN">China</option>
                     <option value="IND">India</option>
+                    <option value="SGP">Singapore</option>
+                    <option value="AUS">Australia</option>
+                    <option value="NZL">New Zealand</option>
                     <option value="ISR">Israel</option>
+                    <option value="NLD">Netherlands</option>
+                    <option value="SWE">Sweden</option>
+                    <option value="NOR">Norway</option>
+                    <option value="DNK">Denmark</option>
+                    <option value="FIN">Finland</option>
+                    <option value="CHE">Switzerland</option>
+                    <option value="AUT">Austria</option>
+                    <option value="BEL">Belgium</option>
+                    <option value="IRL">Ireland</option>
+                    <option value="ESP">Spain</option>
+                    <option value="ITA">Italy</option>
+                    <option value="POL">Poland</option>
+                    <option value="CZE">Czech Republic</option>
+                    <option value="HUN">Hungary</option>
+                    <option value="EST">Estonia</option>
+                    <option value="LTU">Lithuania</option>
+                    <option value="LVA">Latvia</option>
+                    <option value="BRA">Brazil</option>
+                    <option value="ARG">Argentina</option>
+                    <option value="MEX">Mexico</option>
+                    <option value="CHL">Chile</option>
+                    <option value="COL">Colombia</option>
+                    <option value="RUS">Russia</option>
+                    <option value="UKR">Ukraine</option>
+                    <option value="TUR">Turkey</option>
+                    <option value="ZAF">South Africa</option>
+                    <option value="EGY">Egypt</option>
+                    <option value="NGA">Nigeria</option>
+                    <option value="KEN">Kenya</option>
+                    <option value="ARE">United Arab Emirates</option>
+                    <option value="SAU">Saudi Arabia</option>
+                    <option value="IDN">Indonesia</option>
+                    <option value="THA">Thailand</option>
+                    <option value="VNM">Vietnam</option>
+                    <option value="PHL">Philippines</option>
+                    <option value="MYS">Malaysia</option>
                   </select>
                 </div>
 

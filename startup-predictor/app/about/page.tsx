@@ -70,6 +70,25 @@ const AboutPage = () => {
                   </p>
                 </div>
               </div>
+
+              <div className="border-l-4 border-red-500 pl-4 bg-green-50/30 py-3 rounded-r-lg">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                  <BookOpen className="h-4 w-4 text-red-600 mr-2" />
+                  Academic Paper <span className="font-normal italic ml-2 text-gray-600 text-xs"> (click to access)</span>
+                </h3>
+                <div className="text-gray-700 leading-relaxed text-sm space-y-3">
+                  <p>
+                      <a
+                      href="https://www.sciencedirect.com/science/article/pii/S0306457321000595"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800"
+                      >
+                      Żbikowski & Antosiuk (2021)
+                      </a>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
