@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { NotebookPen, Code2, KeyRound, Bot, ChartNetwork, TrendingUp, BookOpen, Database, Brain, Target, Users, Award, GitBranch } from 'lucide-react';
+import { NotebookPen, Code2, GraduationCap, KeyRound, Bot, ChartNetwork, TrendingUp, BookOpen, Database, Brain, Target, Users, Award, GitBranch } from 'lucide-react';
 import Link from 'next/link';
 
 const AboutPage = () => {
@@ -34,7 +34,7 @@ const AboutPage = () => {
               About This Project
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-3">
               <div className="border-l-4 border-purple-500 pl-4 bg-purple-50/30 py-3 rounded-r-lg">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                   <Target className="h-4 w-4 text-purple-600 mr-2" />
@@ -73,7 +73,7 @@ const AboutPage = () => {
 
               <div className="border-l-4 border-red-500 pl-4 bg-green-50/30 py-3 rounded-r-lg">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
-                  <BookOpen className="h-4 w-4 text-red-600 mr-2" />
+                  <GraduationCap className="h-4 w-4 text-red-600 mr-2" />
                   Academic Paper <span className="font-normal italic ml-2 text-gray-600 text-xs"> (click to access)</span>
                 </h3>
                 <div className="text-gray-700 leading-relaxed text-sm space-y-3">
@@ -99,7 +99,7 @@ const AboutPage = () => {
               Data & Process
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-3">
               <div className="border-l-4 border-green-500 pl-4 bg-green-50/30 py-3 rounded-r-lg">
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                   <Database className="h-4 w-4 text-green-600 mr-2" />
@@ -211,7 +211,7 @@ const AboutPage = () => {
                 Performance & Usage
             </h2>
 
-            <div className="space-y-6">
+            <div className="space-y-3">
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center">
                   <ChartNetwork className="h-4 w-4 text-purple-600 mr-2" />
