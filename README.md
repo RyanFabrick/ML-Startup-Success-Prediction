@@ -1,11 +1,32 @@
-*Machine Learning Startup Success Predictor*
+# *Machine Learning Startup Success Predictor*
 
 A full-stack machine learning application that predicts startup success using over 50,000+ company data points spanning 1990-2015. Built with peer reviewed academic validation methodology and powered by XGBoost. Prior to full-stack implementation, comprehensive analysis was conducted through five documented notebooks: exploratory data analysis, preprocessing and feature engineering, modeling development, performance evaluation, and production pipeline setup.
 
 ## Table of Contents
-- [Fill in later]
+- [Frontend, Backend, Data, & Notebook READMEs (More Detail & Visual Examples)](#frontend-backend-data--notebook-readmes-more-detail--visual-examples)
+- [Overview](#overview)
+- [Why Did I Build This?](#why-did-i-build-this)
+- [Key Features](#key-features)
+- [System Architecture](#system-architecture)
+- [Demo GIFs](#demo-gifs)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Notebooks](#notebooks)
+- [Methodology & Academic Foundation](#methodology--academic-foundation)
+- [Overall Model Performances](#overall-model-performances)
+- [Use Cases](#use-cases)
+- [API Documentation](#api-documentation)
+- [Academic Context](#academic-context)
+- [Contributing](#contributing)
+- [License](#license)
+- [Author](#author)
+- [Acknowledgments & References](#acknowledgments--references)
+
 
 ## Frontend, Backend, Data, & Notebook READMEs (More Detail & Visual Examples)
+
+For more **comprehensive**, **specific**, and **thorough** documentation and examples:
 - [Frontend README](startup-predictor/README.md)
 - [Backend README](src/README.md)
 - [Data README](data/README.md)
@@ -15,7 +36,7 @@ A full-stack machine learning application that predicts startup success using ov
 
 This project implements and extends the bias free startup success prediction methodology from Żbikowski & Antosiuk (2021). This repository provides:
 
-- **Machine Learning Models**: XGBoost, Logistic Regression, and SVM with comprehensive evaluation
+- **Machine Learning Models**: XGBoost, Logistic Regression, and SVM with documentation, analysis, and evaluation
 - **Interactive Web Application**: React/Next.js frontend with FastAPI backend
 - **Model Interpretability**: SHAP explanations for individual predictions
 - **Academic Validation**: Reproduces and extends published research methodology
@@ -59,7 +80,7 @@ Fill in later
 ### Machine Learning & Data Science
 - **Python**:
 - **XGBoost**:
-- **Linear Regression with Regularization**:
+- **Logisti Regression with Regularization**:
 - **SVM with RBF Kernel**:
 - **SHAP**: 
 - **Jupyter**: 
@@ -81,6 +102,8 @@ Fill in later
 - **Uvicorn**:
 - **Data Processing**:
 
+
+## Project Structure
 ```
 Fill in later
 ```
