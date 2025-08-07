@@ -49,7 +49,13 @@ This project implements and extends the bias free startup success prediction met
 
 ## Why Did I Build This?
 
-FIll in later
+As a Statistics and Data Science student at UCSB, I wanted to create a project that goes beyond coursework. My background and interests lie around machine learning, artificial intelligence, data science, and software engineering. I set out to build something that's academically rigorous, professionally relevant, and personally meaningful.
+
+Startups fascinate me. They combine innovation, data, and uncertainty. This is the perfect space to apply machine learning. I came across an academic paper that used a bias-free ML approach to predict startup success, and I saw an opportunity: What if I could not only replicate that research but extend it with different techniques, real world applications, and a full stack production-ready interface?
+
+This project became my way of learning how to build an end to end machine learning pipeline, from raw data and literature review to model deployment and interactive demo. I performed exploratory data analysis, built reusable preprocessing pipelines, engineered high-value features, trained and evaluated multiple models, and explored the business implications of different success definitions. I also integrated explainable AI using SHAP, conducted temporal validation across decades, and compared academic versus venture capital perspectives on startup success.
+
+While I had previously built full stack web applications and retrieval augmented generation (RAG) systems, this project was an opportunity to go deeper. I challenged myself to learn new tools like FastAPI for backend development, Next.js for a polished frontend, and Tailwind CSS for rapid UI design. It pushed me to improve as a student aiming to work around data, machine learning, software development, and artifical intelligence!
 
 ## Key Features
 
@@ -68,7 +74,54 @@ FIll in later
 ## System Architecture
 
 ```
-Fill in later
+┌─────────────────────────────────────────────────────────────────┐
+│                     Next.js Frontend                            │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                 │
+│ │ Main        │ │ About       │ │ Prediction  │                 │
+│ │ Page        │ │ Page        │ │ Results     │                 │
+│ └─────────────┘ └─────────────┘ └─────────────┘                 │
+│                                                                 │
+│ ┌─────────────┐                 ┌─────────────┐                 │
+│ │User         │                 │SHAP         │                 │
+│ │Inputs       │                 │Results      │                 │
+│ └─────────────┘                 └─────────────┘                 │
+└─────────────────────────┼───────────────────────────────────────┘
+                          │ 
+┌─────────────────────────┼───────────────────────────────────────┐
+│                   FastAPI Backend                               │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                 │
+│ │ Prediction  │ │ Explanation │ │ Health      │                 │
+│ │ Endpoint    │ │ Endpoint    │ │ Check       │                 │
+│ └─────────────┘ └─────────────┘ └─────────────┘                 │
+│                                                                 │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                 │
+│ │Data         │ │SHAP         │ │Model        │                 │
+│ │Preprocessor │ │Explainers   │ │Loader       │                 │
+│ └─────────────┘ └─────────────┘ └─────────────┘                 │
+└─────────────────────────┼───────────────────────────────────────┘
+                          │ 
+┌─────────────────────────┼───────────────────────────────────────┐
+│                  Machine Learning Layer                         │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                 │
+│ │ XGBoost     │ │ Logistic    │ │ SVM RBF     │                 │
+│ │ Model       │ │ Regression  │ │ Model       │                 │
+│ └─────────────┘ └─────────────┘ └─────────────┘                 │
+└─────────────────────────┼───────────────────────────────────────┘
+                          │ 
+┌─────────────────────────┼───────────────────────────────────────┐
+│                     Data Layer                                  │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                 │
+│ │Crunchbase   │ │Preprocessed │ │Model        │                 │
+│ │Dataset      │ │Features     │ │Artifacts    │                 │
+│ │(50k+)       │ │(22 dims)    │ │(.pkl files) │                 │
+│ └─────────────┘ └─────────────┘ └─────────────┘                 │
+│                                                                 │
+│ ┌─────────────┐ ┌─────────────┐                                 │
+│ │Categories   │ │SHAP         │                                 │
+│ │Reference    │ │Explainer    │                                 │
+│ │Data         │ │Objects      │                                 │
+│ └─────────────┘ └─────────────┘                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Demo GIFs
@@ -78,34 +131,84 @@ Fill in later
 ## Technology Stack
 
 ### Machine Learning & Data Science
-- **Python**:
-- **XGBoost**:
-- **Logisti Regression with Regularization**:
-- **SVM with RBF Kernel**:
-- **SHAP**: 
-- **Jupyter**: 
-- **Pandas**:
-- **NumPy**:
-- **Matplotlib**:
-- **Seaborn**:
-- **scikit-learn**:
+- **Python**: High-level programming language for data science and machine learning
+- **XGBoost**: Optimized gradient boosting framework for high-performance ML models
+- **Logistic Regression with Regularization**: Linear classification algorithm with penalty terms to prevent overfitting
+- **SVM with RBF Kernel**: Support Vector Machine using radial basis function for non-linear classification
+- **SHAP**: Model interpretability library providing unified approach to explain predictions
+- **Jupyter**: Interactive computing environment for data analysis and model development
+- **Pandas**: Data manipulation and analysis library for structured data processing
+- **NumPy**: Fundamental package for numerical computing and array operations
+- **Matplotlib**: Comprehensive plotting library for creating static visualizations
+- **Seaborn**: Statistical data visualization library built on matplotlib
+- **scikit-learn**: Machine learning library with algorithms for classification, regression, and preprocessing
 
 ### Frontend
-- **React**:
-- **Next.js**:
-- **Typescript**:
-- **Tailwind CSS**:
+- **React**: JavaScript library for building interactive user interfaces with component-based architecture
+- **Next.js**: Full stack React framework with server-side rendering and routing capabilities
+- **TypeScript**: Typed superset of JavaScript providing static type checking and enhanced development experience
+- **Tailwind CSS**: Utility first CSS framework for rapid UI development with pre-built styling classes
 
 ### Backend
-- **FastAPI**:
-- **Pydantic**:
-- **Uvicorn**:
-- **Data Processing**:
-
+- **FastAPI**: Modern, fast web framework for building APIs with automatic documentation and type hints
+- **Pydantic**: Data validation library using Python type annotations for request/response schemas
+- **Uvicorn**: Lightning fast ASGI server for serving Python web applications in production
+- **Data Processing**: Pipeline to transform user input into feature vectors for trained model inference
 
 ## Project Structure
+
 ```
-Fill in later
+ML_STARTUP_SUCCESS_PREDICTOR
+├── app/
+│   └── app.py
+├── data/
+│   ├── processed/
+│   ├── raw/
+│   └── README.md
+├── notebooks/
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_data_preprocessing.ipynb
+│   ├── 03_modeling.ipynb
+│   ├── 04_evaluation.ipynb
+│   ├── 05_pipeline.ipynb
+│   └── README.md
+├── results/
+│   ├── figures/
+│   ├── models/
+│   └── reports/
+├── src/
+│   ├── data_preprocessing.py
+│   ├── data_util.py
+│   └── README.md
+├── startup-predictor/
+│   ├── app/
+│   │   ├── about/
+│   │   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   └── layout.tsx
+│   ├── node_modules/
+│   ├── public/
+│   │   ├── file.svg
+│   │   ├── globe.svg
+│   │   ├── next.svg
+│   │   ├── vercel.svg
+│   │   └── window.svg
+│   ├── styles/
+│   │   └── app.css
+│   ├── .gitignore
+│   ├── next.config.mjs
+│   ├── package.json
+│   ├── tailwind.config.json
+│   ├── tsconfig.json
+│   └── README.md
+├── README.md
+├── requirements.txt
+├── LICENSE
+├── .env
+├── .gitattributes
+└── .gitignore
 ```
 
 ## Quick Start
@@ -293,7 +396,26 @@ This project is open source and available under the MIT License.
 - **[Flask Community](https://flask.palletsprojects.com/)** - Excellent web framework
 - **[React Community](https://react.dev/)** - Super helpful and clear documentation
 
-________________________________________
-Built with ❤️ for the ....
+## Acknowledgments & References
 
-Fill in later
+- **[Żbikowski, K., & Antosiuk, P. (2021)](https://www.sciencedirect.com/science/article/pii/S0306457321000595)** - "A machine learning, bias-free approach for predicting business success using Crunchbase data." *Information Processing and Management*, 58(4), 102555
+- **[Crunchbase](https://www.crunchbase.com/)** - Startup and company database providing the 50,000+ company dataset for model training and validation
+- **[XGBoost](https://xgboost.readthedocs.io/)** - Optimized distributed gradient boosting library where machine learning algorithims are implemented under
+- **[scikit-learn](https://scikit-learn.org/)** - Machine learning library providing preprocessing, modeling, and evaluation tools including logistic regression and SVM implementations
+- **[Logistic Regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)** - Linear classification algorithm using logistic function for binary and multiclass prediction with probabilistic outputs
+- **[Support Vector Machine (SVM) with RBF Kernel](https://scikit-learn.org/stable/modules/svm.html#svm-classification)** - Non-linear classification algorithm using radial basis function kernel for complex decision boundaries
+- **[SHAP](https://shap.readthedocs.io/)** - (SHapley Additive exPlanations) Model interpretability library enabling prediction explanations
+- **[Pandas Community](https://pandas.pydata.org/)** - Data manipulation and analysis library
+- **[NumPy Community](https://numpy.org/)** - Fundamental package for scientific computing
+- **[Jupyter Project](https://jupyter.org/)** - Interactive computing environment for data analysis, processing, modeling, evaluation, and documentation
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern, fast web framework for building APIs with Python
+- **[Uvicorn](https://www.uvicorn.org/)** - Lightning fast ASGI server for Python web applications
+- **[Pydantic](https://pydantic-docs.helpmanual.io/)** - Data validation library using Python type annotations
+- **[React Community](https://react.dev/)** - JavaScript library for building interactive user interfaces
+- **[Next.js Community](https://nextjs.org/)** - React framework enabling full stack web applications
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility first CSS framework for rapid UI development
+
+_________________________________________________
+Built with ❤️ for the machine learning community
+
+This personal project demonstrates my machine learning engineering skills, full stack development capabilities, and academic research validation. As a UCSB student, I designed this as an end to end showcase of my technical abilities across the complete ML pipeline - from literature review and data processing & analysis to model deployment and production ready web applications. It highlights my skills in ML algorithms, bias aware methodological design, model interpretability with SHAP, academic research validation, modern web development, and my passion for building data driven solutions and tools for entrepreneurs, investors, reseachers, and students.
