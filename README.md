@@ -295,14 +295,13 @@ Based on **"A machine learning, bias-free approach for predicting business succe
 
 ## Overall Model Performances
 
-```
-| Model | Precision | Recall | F1-Score | AUC-ROC |
-|-------|-----------|--------|----------|---------|
-| Logistic Regression | 0.169 | 0.709 | 0.273 | 0.781 |
-| SVM (RBF) | 0.155 | 0.689 | 0.252 | 0.740 |
-| XGBoost | 0.234 | 0.388 | 0.291 | 0.790 |
-| Academic Target | 0.570 | 0.340 | 0.430 | NaN |
-```
+| Model               | Precision | Recall | F1-Score | AUC-ROC |
+|:--------------------|----------:|-------:|---------:|--------:|
+| Logistic Regression |     0.169 |  0.709 |    0.273 |   0.781 |
+| SVM (RBF)           |     0.155 |  0.689 |    0.252 |   0.740 |
+| XGBoost             |     0.234 |  0.388 |    0.291 |   0.790 |
+| Academic Target     |     0.570 |  0.340 |    0.430 |   NAN   |
+
 
 ## Use Cases
 
