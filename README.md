@@ -126,7 +126,13 @@ While I had previously built full stack web applications and retrieval augmented
 
 ## Demo GIFs
 
-Fill in later
+![demogif1](https://github.com/user-attachments/assets/eaab2a81-6c1e-4d78-994b-a1974b251f69)
+
+![demogif2](https://github.com/user-attachments/assets/360d4668-2e8a-42fa-9c7a-efb9df96b0b9)
+
+![demogifabout](https://github.com/user-attachments/assets/1b7efa3e-44ca-4d0c-a75f-07d21ff691a8)
+
+![demogif3](https://github.com/user-attachments/assets/e69a0d4a-f705-403d-8e69-41dd0e36d6bd)
 
 ## Technology Stack
 
