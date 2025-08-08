@@ -13,11 +13,11 @@
 
 The five notebooks follow a logical, academic, and documented progression from raw data exploration through model deployment preparation. They implement and extend the bias-free methodology from Żbikowski & Antosiuk (2021) while adding enhanced feature engineering, varying model techniques, and new visualizations. Click each documented notebook below for step by step documentation, code, outputs, and more.
 
-- **[01_Exploratory Data Analysis](notebooks/01_data_exploration.ipynb)** 
-- **[02_Preprocessing_&_Feature_Engineering](notebooks/02_data_preprocessing_feature_engineering.ipynb)** 
+- **[01_Exploratory Data Analysis](01_data_exploration.ipynb)** 
+- **[02_Preprocessing_&_Feature_Engineering](02_data_preprocessing_feature_engineering.ipynb)** 
 - **[03_Modeling](notebooks/03_modeling.ipynb)** 
-- **[04_Evaluation](notebooks/04_evaluation.ipynb)** 
-- **[05_Pipeline_Setup](notebooks/05_pipeline_setup.ipynb)**
+- **[04_Evaluation](04_evaluation.ipynb)** 
+- **[05_Pipeline_Setup](05_pipeline_setup.ipynb)**
 
 ## Notebook Descriptions
 
@@ -169,3 +169,6 @@ This notebook implements the final production deployment preparation phase, crea
 **Technical Achievements:**
 - **Modular Architecture Implementation**: Developed reusable create_and_fit_preprocessor() function from src.data_preprocessing module enabling consistent preprocessing logic across development, testing, and production environments while maintaining strict separation between data transformation and model inference components for enhanced maintainability
 - **Encoding Compatibility Assurance**: Implemented latin-1 encoding support ensuring compatibility with original startup dataset format and handling international character sets present in company names, geographic locations, and categorical descriptions preventing encoding errors during production data ingestion
+
+_________________________________________________
+Built with ❤️ for the machine learning community
