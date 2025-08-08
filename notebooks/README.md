@@ -9,8 +9,6 @@
     - [Notebook 4 (Evaluation) Description](#4-04_evaluation)
     - [Notebook 5 (Pipeline Setup) Description](#5-05_pipeline_setup)
     
-
-
 ## Overview
 
 The five notebooks follow a logical, academic, and documented progression from raw data exploration through model deployment preparation. They implement and extend the bias-free methodology from Żbikowski & Antosiuk (2021) while adding enhanced feature engineering, varying model techniques, and new visualizations. Click each documented notebook below for step by step documentation, code, outputs, and more.
