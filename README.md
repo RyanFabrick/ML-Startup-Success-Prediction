@@ -23,7 +23,6 @@ A full-stack machine learning application that predicts startup success using ov
 - [Author](#author)
 - [Acknowledgments & References](#acknowledgments--references)
 
-
 ## Frontend, Backend, Data, & Notebook READMEs (More Detail & Visual Examples)
 
 For more **comprehensive**, **specific**, and **thorough** documentation and examples:
@@ -357,9 +356,9 @@ prediction = response.json()
 ### Literature Foundation
 This project validates and extends the methodology from:
 
-Żbikowski, K., & Antosiuk, P. (2021). A machine learning, bias-free approach for predicting business success using Crunchbase data. *Information Processing and Management*, 58(4), 102555.
+[Żbikowski, K., & Antosiuk, P. (2021). A machine learning, bias-free approach for predicting business success using Crunchbase data. *Information Processing and Management*, 58(4), 102555.](https://www.sciencedirect.com/science/article/pii/S0306457321000595)
 
-This study presents an academically and technically comprehensive machine learning approach to predict startup success while explicitly addressing the **look-ahead bias** problem that plagues most existing research in this domain. The authors analyzed 213,171 companies from the Crunchbase database to develop practically applicable prediction models. While numerous studies have attempted to predict business success using machine learning, they typically suffer from methodological flaws that make their results impractical for actual investment decisions.
+This study presents an academically and technically comprehensive machine learning approach to predict startup success while explicitly addressing the look ahead bias problem that plagues most existing research in this domain. The authors analyzed 213,171 companies from the Crunchbase database to develop practically applicable prediction models. While numerous studies have attempted to predict business success using machine learning, they typically suffer from methodological flaws that make their results impractical for actual investment decisions.
 
 This research establishes a new standard for startup success prediction by prioritizing practical applicability over theoretical performance, providing a valuable tool for data-driven investment decisions while advancing our understanding of entrepreneurial success factors. I used it as both context and inspiration for this project!
 
@@ -391,15 +390,6 @@ This project is open source and available under the MIT License.
 - GitHub: [https://github.com/RyanFabrick](https://github.com/RyanFabrick)
 - LinkedIn: [www.linkedin.com/in/ryan-fabrick](https://www.linkedin.com/in/ryan-fabrick)
 - Email: ryanfabrick@gmail.com
-
-## Acknowledgments & References
-
-- **[CDIP (Coastal Data Information Program)](https://cdip.ucsd.edu/)** - Buoy oceanographic data source
-- **[The Surfers View](https://www.thesurfersview.com/)** - Live surf camera feed provider
-- **[Roboflow](https://roboflow.com/)** - Computer vision and machine learning model training infrastructure
-- **[FFmpeg](https://ffmpeg.org/)** - Professional video stream processing and frame extraction capabilities
-- **[Flask Community](https://flask.palletsprojects.com/)** - Excellent web framework
-- **[React Community](https://react.dev/)** - Super helpful and clear documentation
 
 ## Acknowledgments & References
 

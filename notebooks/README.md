@@ -8,6 +8,10 @@
     - [Notebook 3 (Modeling) Description](#3-03_modeling)
     - [Notebook 4 (Evaluation) Description](#4-04_evaluation)
     - [Notebook 5 (Pipeline Setup) Description](#5-05_pipeline_setup)
+- [Contributing](#contributing)
+- [License](#license)
+- [Author](#author)
+- [Acknowledgments & References](#acknowledgments--references)
     
 ## Overview
 
@@ -169,6 +173,48 @@ This notebook implements the final production deployment preparation phase, crea
 **Technical Achievements:**
 - **Modular Architecture Implementation**: Developed reusable create_and_fit_preprocessor() function from src.data_preprocessing module enabling consistent preprocessing logic across development, testing, and production environments while maintaining strict separation between data transformation and model inference components for enhanced maintainability
 - **Encoding Compatibility Assurance**: Implemented latin-1 encoding support ensuring compatibility with original startup dataset format and handling international character sets present in company names, geographic locations, and categorical descriptions preventing encoding errors during production data ingestion
+
+## Contributing
+
+This project was developed as a personal learning project. For future questions and/or suggestions:
+
+1. Open an issue describing the enhancement or bug
+2. Fork the repository and create a feature branch
+3. Follow coding standards
+4. Write tests for new functionality
+5. Update documentation as needed
+6. Submit a pull request with detailed description of changes
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Author
+
+**Ryan Fabrick**
+- Statistics and Data Science (B.S) Student, University of California Santa Barbara
+- GitHub: [https://github.com/RyanFabrick](https://github.com/RyanFabrick)
+- LinkedIn: [www.linkedin.com/in/ryan-fabrick](https://www.linkedin.com/in/ryan-fabrick)
+- Email: ryanfabrick@gmail.com
+
+## Acknowledgments & References
+
+- **[Żbikowski, K., & Antosiuk, P. (2021)](https://www.sciencedirect.com/science/article/pii/S0306457321000595)** - "A machine learning, bias-free approach for predicting business success using Crunchbase data." *Information Processing and Management*, 58(4), 102555
+- **[Crunchbase](https://www.crunchbase.com/)** - Startup and company database providing the 50,000+ company dataset for model training and validation
+- **[XGBoost](https://xgboost.readthedocs.io/)** - Optimized distributed gradient boosting library where machine learning algorithims are implemented under
+- **[scikit-learn](https://scikit-learn.org/)** - Machine learning library providing preprocessing, modeling, and evaluation tools including logistic regression and SVM implementations
+- **[Logistic Regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)** - Linear classification algorithm using logistic function for binary and multiclass prediction with probabilistic outputs
+- **[Support Vector Machine (SVM) with RBF Kernel](https://scikit-learn.org/stable/modules/svm.html#svm-classification)** - Non-linear classification algorithm using radial basis function kernel for complex decision boundaries
+- **[SHAP](https://shap.readthedocs.io/)** - (SHapley Additive exPlanations) Model interpretability library enabling prediction explanations
+- **[Pandas Community](https://pandas.pydata.org/)** - Data manipulation and analysis library
+- **[NumPy Community](https://numpy.org/)** - Fundamental package for scientific computing
+- **[Jupyter Project](https://jupyter.org/)** - Interactive computing environment for data analysis, processing, modeling, evaluation, and documentation
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern, fast web framework for building APIs with Python
+- **[Uvicorn](https://www.uvicorn.org/)** - Lightning fast ASGI server for Python web applications
+- **[Pydantic](https://pydantic-docs.helpmanual.io/)** - Data validation library using Python type annotations
+- **[React Community](https://react.dev/)** - JavaScript library for building interactive user interfaces
+- **[Next.js Community](https://nextjs.org/)** - React framework enabling full stack web applications
+- **[Tailwind CSS](https://tailwindcss.com/)** - Utility first CSS framework for rapid UI development
 
 _________________________________________________
 Built with ❤️ for the machine learning community
