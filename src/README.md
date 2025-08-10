@@ -297,7 +297,9 @@ gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 ## Demo GIFs
 
+![backenddemogif1](https://github.com/user-attachments/assets/7b7e65ae-92fb-4ba0-910e-1a88204e87ab)
 
+![demobackendgif2](https://github.com/user-attachments/assets/10ef554f-b1b8-487a-af1b-51e70dd1291e)
 
 ## Usage Examples
 
