@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
+- [Demo GIFs](#demo-gifs)
 - [Frontend Technology Stack](#frontend-technology-stack)
 - [Frontend Project Structure](#frontend-project-structure)
 - [Installation](#installation)
@@ -50,6 +51,10 @@ The frontend provides an intuitive interface for predicting startup success usin
 - **Factor Analysis** showing positive/negative impacts
 - **Model Transparency** with algorithm information
 - **Historical Context** and interpretation guidance
+
+## Demo GIFs
+
+
 
 ## Frontend Technology Stack
 
