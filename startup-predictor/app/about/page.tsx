@@ -122,7 +122,7 @@ const AboutPage = () => {
                     <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                         <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-3 flex-shrink-0"></span>
                         <a
-                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/01_data_exploration.ipynb"
+                        href="https://github.com/RyanFabrick/ML-Startup-Success-Prediction/blob/2d72964bd8447d5ffbff341e6a172381fd62bd8f/notebooks/01_data_exploration.ipynb"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 font-medium text-xs"
@@ -133,8 +133,7 @@ const AboutPage = () => {
                     <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                         <span className="inline-block w-2 h-2 bg-purple-500 rounded-full mr-3 flex-shrink-0"></span>
                         <a
-                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/02_data_preprocessing_feature_engineering.ipynb"
-                        target="_blank"
+                        href="https://github.com/RyanFabrick/ML-Startup-Success-Prediction/blob/2d72964bd8447d5ffbff341e6a172381fd62bd8f/notebooks/02_data_preprocessing_feature_engineering.ipynb"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 font-medium text-xs"
                         >
@@ -144,7 +143,7 @@ const AboutPage = () => {
                     <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                         <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-3 flex-shrink-0"></span>
                         <a
-                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/03_modeling.ipynb"
+                        href="https://github.com/RyanFabrick/ML-Startup-Success-Prediction/blob/2d72964bd8447d5ffbff341e6a172381fd62bd8f/notebooks/03_modeling.ipynb"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 font-medium text-xs"
@@ -155,12 +154,23 @@ const AboutPage = () => {
                     <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                         <span className="inline-block w-2 h-2 bg-red-500 rounded-full mr-3 flex-shrink-0"></span>
                         <a
-                        href="https://github.com/RyanFabrick/Startup-Success-Prediction/blob/42bdafe199dcf3274e2c6cd2f2c482476037aa7e/notebooks/04_evaluation.ipynb"
+                        href="https://github.com/RyanFabrick/ML-Startup-Success-Prediction/blob/2d72964bd8447d5ffbff341e6a172381fd62bd8f/notebooks/04_evaluation.ipynb"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 font-medium text-xs"
                         >
                         Notebook 4: Model Evaluation
+                        </a>
+                    </li>
+                    <li className="flex items-center bg-white p-2 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                        <span className="inline-block w-2 h-2 bg-yellow-500 rounded-full mr-3 flex-shrink-0"></span>
+                        <a
+                        href="https://github.com/RyanFabrick/ML-Startup-Success-Prediction/blob/2d72964bd8447d5ffbff341e6a172381fd62bd8f/notebooks/05_pipeline_setup.ipynb"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 font-medium text-xs"
+                        >
+                        Notebook 5: Pipeline Setup
                         </a>
                     </li>
                     </ul>
