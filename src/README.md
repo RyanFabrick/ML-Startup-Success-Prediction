@@ -5,7 +5,8 @@
 - [Backend Architecture](#backend-architecture)
 - [API Endpoints](#api-endpoints)
 - [Data Processing Pipeline](#data-processing-pipeline)
-- [Installation & Setup](#installation--setup)
+- [Installation & Setup](#installation--setup)'
+- [Demo GIFs](#demo-gifs)
 - [Usage Examples](#usage-examples)
 - [Model Integration](#model-integration)
 - [Production Deployment](#production-deployment)
@@ -294,6 +295,9 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 # Production with Gunicorn
 gunicorn app:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
+## Demo GIFs
+
+
 
 ## Usage Examples
 
