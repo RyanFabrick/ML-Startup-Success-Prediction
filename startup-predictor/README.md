@@ -36,7 +36,7 @@ The frontend provides an intuitive interface for predicting startup success usin
 - **SHAP Explanations** showing key success factors
 - **Interactive Forms** with validation and user feedback
 - **Multi category Selection** for industry classification
-- **Searchable Dropdowns** for 750+ regions and cities
+- **Searchable Dropdowns** for more than 750 regions and cities
 - **Responsive Layout** optimized for all devices
 
 ### User Interface
@@ -307,7 +307,7 @@ interface ExplanationResponse {
 #### Dropdown Options
 - **Regions**: 750+ global regions loaded on mount
 - **Cities**: Comprehensive city database
-- **Categories**: 15 industry categories with multi-select
+- **Categories**: 15 industry categories with multi select
 
 #### Error Handling
 - Network errors with retry suggestions
