@@ -54,7 +54,13 @@ The frontend provides an intuitive interface for predicting startup success usin
 
 ## Demo GIFs
 
+![demogif1](https://github.com/user-attachments/assets/ec3285e2-7e33-4931-be42-e274dff10c33)
 
+![demogif2](https://github.com/user-attachments/assets/28684aa2-07b7-4d8b-acb0-a51fc770a4e0)
+
+![demogif3](https://github.com/user-attachments/assets/9df4598e-6022-4083-83d1-ebf4b259f331)
+
+![demogifabout](https://github.com/user-attachments/assets/eb975ed2-2f46-49af-ba1c-468d7d6bf746)
 
 ## Frontend Technology Stack
 
